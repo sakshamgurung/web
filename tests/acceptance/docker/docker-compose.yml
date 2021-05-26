@@ -32,6 +32,8 @@ services:
       - ./config.ocis.json:/web/config.json:ro
     depends_on:
       - selenium
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   oc10:
     build:
@@ -54,3 +56,5 @@ services:
       - ../../../dist/oidc-silent-redirect.html:/mnt/data/apps/web/oidc-silent-redirect.html
     depends_on:
       - selenium
+    extra_hosts:
+      - host.docker.internal:host-gateway
