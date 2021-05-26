@@ -38,7 +38,7 @@ services:
       context: ./
       dockerfile: Dockerfile.oc10
     ports:
-      - 9200:8080
+      - 8080:8080
     volumes:
       - ./config.oc10.php:/mnt/data/config/setup.config.php:ro
       - ./config.oc10.json:/mnt/data/config/config.json:ro
