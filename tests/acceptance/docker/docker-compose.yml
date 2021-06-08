@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   selenium:
     image: seleniarm/standalone-chromium:4.0.0-beta-1-20210215
@@ -13,7 +11,7 @@ services:
       - host.docker.internal:host-gateway
 
   ocis:
-    image: owncloud/ocis:latest
+    image: owncloud/ocis:${VERSION:-latest}
     ports:
       - 9200:9200
     environment:
@@ -39,11 +37,13 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.oc10
+      args:
+        VERSION: ${VERSION:-latest}
     ports:
       - 8080:8080
     volumes:
-      - ./config.oc10.php:/mnt/data/config/setup.config.php:ro
-      - ./config.oc10.json:/mnt/data/config/config.json:ro
+      - ./config.oc10.php:/mnt/data/config/setup.config.php
+      - ./config.oc10.json:/mnt/data/config/config.json
       - ../../../packages/web-integration-oc10/appinfo:/mnt/data/apps/web/appinfo
       - ../../../packages/web-integration-oc10/lib:/mnt/data/apps/web/lib
       - ../../../dist/css:/mnt/data/apps/web/css
