@@ -8,7 +8,7 @@ services:
       - /dev/shm:/dev/shm
       - ../filesForUpload:/uploads:ro
     extra_hosts:
-      - host.docker.internal:host-gateway
+      - "host.docker.internal:host-gateway"
 
   ocis:
     image: owncloud/ocis:${VERSION:-latest}
@@ -31,7 +31,7 @@ services:
     depends_on:
       - selenium
     extra_hosts:
-      - host.docker.internal:host-gateway
+      - "host.docker.internal:host-gateway"
 
   oc10:
     build:
@@ -57,4 +57,4 @@ services:
     depends_on:
       - selenium
     extra_hosts:
-      - host.docker.internal:host-gateway
+      - "host.docker.internal:host-gateway"
