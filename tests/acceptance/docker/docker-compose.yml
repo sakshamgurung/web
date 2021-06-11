@@ -11,7 +11,7 @@ services:
       - "host.docker.internal:${DOCKER_HOST:-host-gateway}"
 
   ocis:
-    image: owncloud/ocis:${VERSION:-latest}
+    image: owncloud/ocis:${OCIS_VERSION:-latest}
     ports:
       - 9200:9200
     environment:
@@ -38,7 +38,7 @@ services:
       context: ./
       dockerfile: Dockerfile.oc10
       args:
-        VERSION: ${VERSION:-latest}
+        VERSION: ${OC10_VERSION:-latest}
     ports:
       - 8080:8080
     volumes:
