@@ -28,7 +28,7 @@ services:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
 
   oc10:
-    image: ${OCIS_IMAGE:-owncloud/server:latest}
+    image: ${OC10_IMAGE:-owncloud/server:latest}
     ports:
       - 8080:8080
     volumes:
