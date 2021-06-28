@@ -553,5 +553,7 @@ export default {
     if (preview) {
       commit('UPDATE_RESOURCE_FIELD', { id: resource.id, field: 'preview', value: preview })
     }
+
+    return preview
   }
 }
