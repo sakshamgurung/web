@@ -7,33 +7,33 @@ import { bus } from 'web-pkg/src/instance'
 import { SearchProvider } from './types'
 
 bus.on('app.search.register.provider', (provider: SearchProvider) => {
-    providerStore.addProvider(provider)
+  providerStore.addProvider(provider)
 })
 
 export default {
-    appInfo: {
-        name: 'Search',
-        id: 'search',
-        icon: 'folder'
-    },
-    store,
-    routes: [
+  appInfo: {
+    name: 'Search',
+    id: 'search',
+    icon: 'folder'
+  },
+  store,
+  routes: [
+    {
+      name: 'search',
+      path: '/',
+      components: {
+        app: App
+      },
+      children: [
         {
-            name: 'search',
-            path: '/',
-            components: {
-                app: App
-            },
-            children: [
-                {
-                    name: 'provider-list',
-                    path: 'list/:page?',
-                    component: List
-                }
-            ]
+          name: 'provider-list',
+          path: 'list/:page?',
+          component: List
         }
-    ],
-    mounted({ portal }: { portal: unknown }): void {
-        ;(portal as any).open('runtime', 'header', 1, [SearchBar])
+      ]
     }
+  ],
+  mounted({ portal }: { portal: unknown }): void {
+    ;(portal as any).open('runtime', 'header', 1, [SearchBar])
+  }
 }

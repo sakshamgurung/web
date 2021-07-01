@@ -46,9 +46,6 @@ export default {
   beforeMount() {
     this.resource = this.searchResult.data
   },
-  computed: {
-    ...mapGetters(['Files', ['configuration', 'user', 'getToken']])
-  },
   mounted() {
     const debounced = debounce(async ({ unobserve }) => {
       unobserve()
