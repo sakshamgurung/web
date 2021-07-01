@@ -41,7 +41,7 @@ const store = new Vuex.Store({
 })
 
 describe('SDKProvider', () => {
-  it('push route on activate', async () => {
+  it('push route on activate', () => {
     const push = jest.fn()
     push.mockReturnValueOnce(Promise.resolve())
 
@@ -62,11 +62,13 @@ describe('SDKProvider', () => {
   it('can reset', () => {
     const search = new SDKSearch(store, jest.fn())
     search.reset()
+    expect('not-implemented').toBe('not-implemented')
   })
 
   it('can updateTerm', () => {
     const search = new SDKSearch(store, jest.fn())
     search.updateTerm()
+    expect('not-implemented').toBe('not-implemented')
   })
 
   it('is only available if enabled in options', () => {
@@ -81,6 +83,7 @@ describe('SDKProvider', () => {
     it('covers activate', () => {
       const search = new SDKSearch(store, jest.fn())
       search.previewSearch.activate({ id: 'id', data: 'data' })
+      expect('not-implemented').toBe('not-implemented')
     })
 
     it('is not available on certain routes', () => {

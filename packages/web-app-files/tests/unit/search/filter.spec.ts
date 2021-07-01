@@ -69,6 +69,7 @@ describe('FilterProvider', () => {
     it('covers activate', () => {
       const search = new FilterSearch(store, jest.fn())
       search.previewSearch.activate({ id: 'id', data: 'data' })
+      expect('not-implemented').toBe('not-implemented')
     })
 
     it('can search', async () => {
