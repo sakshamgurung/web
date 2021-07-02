@@ -60,3 +60,13 @@ services:
       - ./tests/acceptance/filesForUpload:/uploads:ro
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
+
+  vnc:
+    build:
+      dockerfile: vnc.Dockerfile
+      context: ./dev/docker
+    ports:
+      - 6080:6080
+    extra_hosts:
+      - host.docker.internal:${DOCKER_HOST:-host-gateway}
+
