@@ -62,7 +62,7 @@ export default {
     activeFiles() {
       return [...this.allFiles].splice(
         (this.currentPage - 1) * this.filesPageLimit,
-        this.filesPageLimit
+        Number(this.filesPageLimit)
       )
     }
   }

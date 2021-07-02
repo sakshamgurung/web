@@ -28,7 +28,6 @@
           class="provider"
           :class="{ selected: activeProvider ? provider.id === activeProvider.id : false }"
           @click="activateProvider(provider)"
-          @mouseover="onEvent"
         >
           <oc-icon name="search" accessible-label="Close" />
           {{ term | truncate }}
@@ -171,12 +170,10 @@ export default {
       const optionsVisibleInitial = this.optionsVisible
       const eventInComponent = this.$el.contains(event.target)
       const clearEvent = event.target.classList.contains('oc-search-clear')
-      const hoverEvent = event.type === 'mouseover'
-      const keyEvent = event.type === 'keyup'
-      const keyEventUp = keyEvent && event.key === 'ArrowUp'
-      const keyEventDown = keyEvent && event.key === 'ArrowDown'
-      const keyEventEnter = keyEvent && event.key === 'Enter'
-      const keyEventEsc = keyEvent && event.key === 'Escape'
+      const keyEventUp = event.key === 'ArrowUp'
+      const keyEventDown = event.key === 'ArrowDown'
+      const keyEventEnter = event.key === 'Enter'
+      const keyEventEsc = event.key === 'Escape'
       const activeProviderIndex = this.availableProviders.indexOf(this.activeProvider)
 
       event.stopPropagation()
@@ -194,16 +191,6 @@ export default {
       }
 
       let nextProviderIndex
-      if (hoverEvent && optionsVisibleInitial && eventInComponent) {
-        // todo: feels a bit strange when hovering element and try to reach searchResults.
-        // turn off for now
-        // nextProviderIndex = Array.prototype.indexOf.call(
-        //  [...event.target.parentElement.children].filter(element =>
-        //    element.classList.contains('provider')
-        //  ),
-        //  event.target
-        // )
-      }
 
       if (
         (keyEventUp || keyEventDown) &&

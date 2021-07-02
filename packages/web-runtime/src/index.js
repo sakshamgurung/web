@@ -116,7 +116,7 @@ const supportedLanguages = {
 }
 
 const translations = merge({}, coreTranslations, odsTranslations)
-const apps = []
+const appRegistry = []
 
 const loadApp = async path => {
   const app = await new Promise((resolve, reject) =>
@@ -131,7 +131,7 @@ const loadApp = async path => {
     throw new Error('Skipping without appInfo for app ' + path)
   }
 
-  apps.push(app)
+  appRegistry.push(app)
 
   if (app.routes) {
     // rewrite relative app routes by prefixing their corresponding appId
@@ -230,7 +230,7 @@ const finalizeInit = async () => {
     router,
     render: h => h(App),
     mounted() {
-      apps.forEach(
+      appRegistry.forEach(
         app =>
           app.mounted && app.mounted({ store, router, runtime: this, portal: portal(this, app.id) })
       )

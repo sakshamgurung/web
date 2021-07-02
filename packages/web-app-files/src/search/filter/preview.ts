@@ -1,13 +1,15 @@
 import { SearchPreview, SearchResult } from 'search/src/types'
 import PreviewComponent from '../../components/Search/Preview.vue'
 import { filterResources } from '../../helpers/resource'
+import { Store } from 'vuex'
+import { Component } from 'vue'
 
-export default class PreviewSearch implements SearchPreview {
-  public readonly component: unknown
+export default class Preview implements SearchPreview {
+  public readonly component: Component
   public readonly available: boolean
-  private readonly store: unknown
+  private readonly store: Store<any>
 
-  constructor(store: unknown) {
+  constructor(store: Store<any>) {
     this.component = PreviewComponent
     this.store = store
     this.available = true
@@ -16,7 +18,7 @@ export default class PreviewSearch implements SearchPreview {
   public search(term: string): Promise<SearchResult[]> {
     // no cache required, the filtering is client only and fast enough to recalculate the set
     // of results every time on the fly
-    const resources: any[] = filterResources((this.store as any).getters['Files/files'], term, 5)
+    const resources: any[] = filterResources(this.store.getters['Files/files'], term, 5)
     const searchResult = resources.map(resource => ({ id: resource.id, data: { ...resource } }))
 
     return Promise.resolve(searchResult)

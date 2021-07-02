@@ -272,12 +272,12 @@ export default {
   navItems,
   quickActions,
   translations,
-  mounted({ router, store }) {
-    // todo: this works for now
+  mounted({ router: runtimeRouter, store: runtimeStore }) {
+    Registry.filterSearch = new FilterSearch(runtimeStore, runtimeRouter)
+    Registry.sdkSearch = new SDKSearch(runtimeStore, runtimeRouter)
+
     // when discussing the boot process of applications we nee to implement a
     // registry that does not rely on call order, aka first register "on" and only after emit.
-    Registry.filterSearch = new FilterSearch(store, router)
-    Registry.sdkSearch = new SDKSearch(store, router)
     bus.emit('app.search.register.provider', Registry.filterSearch)
     bus.emit('app.search.register.provider', Registry.sdkSearch)
   }

@@ -5,6 +5,7 @@ import List from './views/List.vue'
 import { providerStore } from './service'
 import { bus } from 'web-pkg/src/instance'
 import { SearchProvider } from './types'
+import { Component } from 'vue'
 
 bus.on('app.search.register.provider', (provider: SearchProvider) => {
   providerStore.addProvider(provider)
@@ -33,7 +34,13 @@ export default {
       ]
     }
   ],
-  mounted({ portal }: { portal: unknown }): void {
-    ;(portal as any).open('runtime', 'header', 1, [SearchBar])
+  mounted({
+    portal
+  }: {
+    portal: {
+      open: (toApp: string, toPortal: string, order: number, components: Component[]) => void
+    }
+  }): void {
+    portal.open('runtime', 'header', 1, [SearchBar])
   }
 }
