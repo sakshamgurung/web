@@ -86,10 +86,6 @@ export default {
 
     searchLabel() {
       return this.$gettext('Enter search term')
-    },
-
-    displaySearchButtonLabel() {
-      return this.$gettext('Open search bar')
     }
   },
 
@@ -170,10 +166,10 @@ export default {
       const optionsVisibleInitial = this.optionsVisible
       const eventInComponent = this.$el.contains(event.target)
       const clearEvent = event.target.classList.contains('oc-search-clear')
-      const keyEventUp = event.key === 'ArrowUp'
-      const keyEventDown = event.key === 'ArrowDown'
-      const keyEventEnter = event.key === 'Enter'
-      const keyEventEsc = event.key === 'Escape'
+      const keyEventUp = event.keyCode === 38
+      const keyEventDown = event.keyCode === 40
+      const keyEventEnter = event.keyCode === 13
+      const keyEventEsc = event.keyCode === 27
       const activeProviderIndex = this.availableProviders.indexOf(this.activeProvider)
 
       event.stopPropagation()
@@ -186,8 +182,8 @@ export default {
       Vue.set(this, 'optionsVisible', eventInComponent)
 
       if (keyEventEnter) {
-        this.optionsVisible = false
         this.activateProvider(this.activeProvider)
+        return
       }
 
       let nextProviderIndex
