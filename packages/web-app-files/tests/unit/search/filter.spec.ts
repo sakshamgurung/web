@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils'
 import { FilterSearch } from '../../../src/search'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -26,7 +27,7 @@ const store = new Vuex.Store({
 describe('FilterProvider', () => {
   it('emits on activate', () => {
     let val
-    const search = new FilterSearch(store, jest.fn())
+    const search = new FilterSearch(store, (jest.fn() as unknown) as VueRouter)
     search.on('activate', data => (val = data))
     ;['foo', 'bar'].forEach((v, i) => {
       search.activate(v)
@@ -36,7 +37,7 @@ describe('FilterProvider', () => {
 
   it('emits on reset', () => {
     const val = jest.fn()
-    const search = new FilterSearch(store, jest.fn())
+    const search = new FilterSearch(store, (jest.fn() as unknown) as VueRouter)
     search.on('reset', val)
     search.reset()
     search.reset()
@@ -46,7 +47,7 @@ describe('FilterProvider', () => {
 
   it('emits on updateTerm', () => {
     const val = jest.fn()
-    const search = new FilterSearch(store, jest.fn())
+    const search = new FilterSearch(store, (jest.fn() as unknown) as VueRouter)
     search.on('updateTerm', val)
     ;['foo', 'bar', 'baz'].forEach((v, i) => {
       search.updateTerm(v)
@@ -57,9 +58,9 @@ describe('FilterProvider', () => {
   it('is only available on certain routes', () => {
     ;[{ route: 'foo' }, { route: 'files-personal', available: true }, { route: 'bar' }].forEach(
       v => {
-        const search = new FilterSearch(store, {
+        const search = new FilterSearch(store, ({
           currentRoute: { name: v.route }
-        })
+        } as unknown) as VueRouter)
         expect(search.available).toBe(!!v.available)
       }
     )
@@ -67,13 +68,13 @@ describe('FilterProvider', () => {
 
   describe('FilterProvider previewSearch', () => {
     it('covers activate', () => {
-      const search = new FilterSearch(store, jest.fn())
+      const search = new FilterSearch(store, (jest.fn() as unknown) as VueRouter)
       search.previewSearch.activate({ id: 'id', data: 'data' })
       expect('not-implemented').toBe('not-implemented')
     })
 
     it('can search', async () => {
-      const search = new FilterSearch(store, jest.fn())
+      const search = new FilterSearch(store, (jest.fn() as unknown) as VueRouter)
       const result = await search.previewSearch.search('foo')
 
       expect(result).toMatchObject([{ id: files[0].id, data: files[0] }])

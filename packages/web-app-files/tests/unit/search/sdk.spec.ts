@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils'
 import { SDKSearch } from '../../../src/search'
 import { clientService } from '../../../src/services'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 
 const searchMock = jest.fn()
 jest.spyOn(clientService, 'owncloudSdk', 'get').mockImplementation(() => ({
@@ -45,7 +46,7 @@ describe('SDKProvider', () => {
     const push = jest.fn()
     push.mockReturnValueOnce(Promise.resolve())
 
-    const search = new SDKSearch(store, { push })
+    const search = new SDKSearch(store, ({ push } as unknown) as VueRouter)
     const expected = {
       name: 'search-provider-list',
       query: { term: 'foo', provider: 'files.sdk' }
@@ -60,19 +61,19 @@ describe('SDKProvider', () => {
   })
 
   it('can reset', () => {
-    const search = new SDKSearch(store, jest.fn())
+    const search = new SDKSearch(store, (jest.fn() as unknown) as VueRouter)
     search.reset()
     expect('not-implemented').toBe('not-implemented')
   })
 
   it('can updateTerm', () => {
-    const search = new SDKSearch(store, jest.fn())
+    const search = new SDKSearch(store, (jest.fn() as unknown) as VueRouter)
     search.updateTerm()
     expect('not-implemented').toBe('not-implemented')
   })
 
   it('is only available if enabled in options', () => {
-    const search = new SDKSearch(store, {})
+    const search = new SDKSearch(store, ({} as unknown) as VueRouter)
     ;[false, true, false].forEach(v => {
       store.commit('Search/updateOptions', v)
       expect(search.available).toBe(!v)
@@ -81,7 +82,7 @@ describe('SDKProvider', () => {
 
   describe('SDKProvider previewSearch', () => {
     it('covers activate', () => {
-      const search = new SDKSearch(store, jest.fn())
+      const search = new SDKSearch(store, (jest.fn() as unknown) as VueRouter)
       search.previewSearch.activate({ id: 'id', data: 'data' })
       expect('not-implemented').toBe('not-implemented')
     })
@@ -92,16 +93,16 @@ describe('SDKProvider', () => {
         { route: 'search-provider-list' },
         { route: 'bar', available: true }
       ].forEach(v => {
-        const search = new SDKSearch(store, {
+        const search = new SDKSearch(store, ({
           currentRoute: { name: v.route }
-        })
+        } as unknown) as VueRouter)
 
         expect(!!search.previewSearch.available).toBe(!!v.available)
       })
     })
 
     it('can search', async () => {
-      const search = new SDKSearch(store, jest.fn())
+      const search = new SDKSearch(store, (jest.fn() as unknown) as VueRouter)
       const files = [
         { id: 'foo', name: 'foo' },
         { id: 'bar', name: 'bar' },
@@ -121,7 +122,7 @@ describe('SDKProvider', () => {
   })
   describe('SDKProvider listSearch', () => {
     it('can search', async () => {
-      const search = new SDKSearch(store, jest.fn())
+      const search = new SDKSearch(store, (jest.fn() as unknown) as VueRouter)
       const files = [
         { id: 'foo', name: 'foo' },
         { id: 'bar', name: 'bar' },
