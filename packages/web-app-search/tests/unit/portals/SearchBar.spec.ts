@@ -64,7 +64,7 @@ describe('Search Bar portal component', () => {
     await wrapper.find('input').setValue('new')
     expect(wrapper.vm.$data.term).toBe('new')
   })
-  test('the active provider get reset on route change', async () => {
+  test('the active provider get reset on route change', () => {
     wrapper = mount(SearchBar, {
       localVue,
       data() {
@@ -216,7 +216,7 @@ describe('Search Bar portal component', () => {
     })
     expect(wrapper.findAll('li.provider').length).toBe(2)
   })
-  test('marks the active provider as selected', async () => {
+  test('marks the active provider as selected', () => {
     wrapper = mount(SearchBar, {
       localVue,
       data() {
@@ -273,7 +273,7 @@ describe('Search Bar portal component', () => {
       expect(providers.at(i).get('.term').element.innerHTML).toBe('oldoldoldoldoldoldoldoldold...')
     }
   })
-  test('provider label is displayed as tag in  provider list item', async () => {
+  test('provider label is displayed as tag in  provider list item', () => {
     wrapper = mount(SearchBar, {
       localVue,
       data() {
@@ -366,7 +366,7 @@ describe('Search Bar portal component', () => {
       data: 'dummyProviderOne - 2'
     })
   })
-  test('sets the search term and input term to the route value on mount', async () => {
+  test('sets the search term and input term to the route value on mount', () => {
     wrapper = mount(SearchBar, {
       localVue,
       data() {

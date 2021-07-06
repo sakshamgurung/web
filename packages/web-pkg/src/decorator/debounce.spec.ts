@@ -10,7 +10,7 @@ class Sample {
 }
 
 describe('Debounce', () => {
-  test('debounce decorated function', async () => {
+  test('debounce decorated function', () => {
     jest.useFakeTimers('modern')
 
     const sample = new Sample()
