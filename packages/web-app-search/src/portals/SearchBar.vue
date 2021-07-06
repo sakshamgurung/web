@@ -29,8 +29,8 @@
           :class="{ selected: activeProvider ? provider.id === activeProvider.id : false }"
           @click="activateProvider(provider)"
         >
-          <oc-icon name="search" accessible-label="Close" />
-          {{ term | truncate }}
+          <oc-icon name="search" accessible-label="Search" />
+          <span class="term">{{ term | truncate }}</span>
           <div v-if="provider.label" class="label">{{ provider.label }}</div>
         </li>
         <li v-if="$asyncComputed.searchResults.updating" class="loading spinner">
