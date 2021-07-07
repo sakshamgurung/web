@@ -30,9 +30,10 @@ export default {
   asyncComputed: {
     searchResults: {
       get() {
+        console.log(111, this.$route.query.term)
         return this.listSearch.search(this.$route.query.term)
       },
-      watch: ['$route.query.query', '$route.params.provider']
+      watch: ['$route.query.term', '$route.query.provider']
     }
   }
 }

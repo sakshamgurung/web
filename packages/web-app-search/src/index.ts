@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import SearchBar from './portals/SearchBar.vue'
 import App from './App.vue'
 import store from './store'
