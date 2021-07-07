@@ -4,6 +4,7 @@ import List from './list'
 import { EventBus } from 'web-pkg/src/event'
 import { Store } from 'vuex'
 import VueRouter from 'vue-router'
+import get from 'lodash-es/get'
 
 export default class Provider extends EventBus implements SearchProvider {
   public readonly id: string
@@ -46,6 +47,6 @@ export default class Provider extends EventBus implements SearchProvider {
   public get available(): boolean {
     const { hideSearchBar } = this.store.getters['Search/options']
 
-    return !hideSearchBar
+    return !get(this.store, 'state.config.options.hideSearchBar', hideSearchBar)
   }
 }

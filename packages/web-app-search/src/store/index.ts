@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import merge from 'lodash-es/merge'
 import options from './options'
 
