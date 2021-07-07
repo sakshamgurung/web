@@ -1,13 +1,7 @@
 services:
-  web:
-    image: owncloud/web
-    ports:
-      - 9100:8080
-    volumes:
-      - ./dist:/var/lib/nginx/html:ro
-
   ocis:
     image: ${OCIS_IMAGE:-owncloud/ocis:latest}
+    container_name: web_ocis
     ports:
       - 9200:9200
     environment:
@@ -29,6 +23,7 @@ services:
 
   oc10:
     image: ${OC10_IMAGE:-owncloud/server:latest}
+    container_name: web_oc10
     ports:
       - 8080:8080
     volumes:
@@ -52,6 +47,7 @@ services:
   selenium:
     # for m1 use SELENIUM_IMAGE=seleniarm/standalone-chromium:4.0.0-beta-1-20210215 docker-compose run selenium
     image: ${SELENIUM_IMAGE:-selenium/standalone-chrome-debug}
+    container_name: web_selenium
     ports:
       - 4444:4444
       - 5900:5900
@@ -60,11 +56,14 @@ services:
       - ./tests/acceptance/filesForUpload:/uploads:ro
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
+    environment:
+      VNC_NO_PASSWORD: 'true'
 
   vnc:
     build:
       dockerfile: vnc.Dockerfile
       context: ./dev/docker
+    container_name: web_vnc
     ports:
       - 6080:6080
     extra_hosts:
